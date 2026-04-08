@@ -1,6 +1,7 @@
 package studio9;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Polynomial {
 	
@@ -10,6 +11,8 @@ public class Polynomial {
 	 * Constructs a Polynomial with no terms yet.
 	 */
 	public Polynomial() {
+		list = new LinkedList<>();
+	
 		//FIXME
 	}
 
@@ -20,7 +23,7 @@ public class Polynomial {
 	 * @return polynomial with added term
 	 */
 	public void addTerm(double coeff) {
-		//FIXME
+		list.add(coeff);
 	}
 	
 	/*
@@ -29,7 +32,13 @@ public class Polynomial {
 	 * Cx^N + Cx^N-1 + ... + Cx + C
 	 */
 	public String toString() {
-		return ""; //FIXME
+		String stringResult = "";
+		for (int i = 0; i < list.size() - 2; i++) {
+			stringResult += list.get(i) + "x^" + (list.size() - 1 - i) + " + ";
+		}
+		stringResult += list.get(list.size() - 2) + "x" + " + ";
+		stringResult += list.get(list.size() - 1);
+		return stringResult;
 	}
 	
 	/**
@@ -38,12 +47,20 @@ public class Polynomial {
 	 * @return value of polynomial at that x
 	 */
 	public double evaluate(double x) {
-		return 0;//FIXME
+		double finalResult = 0.0;
+		for (int i = 0; i < list.size(); i++) {
+			finalResult += list.get(i) * Math.pow(x, (list.size() - 1 - i));
+		}
+		return finalResult;
 	}
 
 	
 	public Polynomial derivative() {
-		return null;//FIXME
+		Polynomial derivativeResults = new Polynomial();
+		for (int i = 0; i < list.size() - 1; i++) {
+			derivativeResults.addTerm(list.get(i) * (list.size() - 1 - i));
+		}
+		return derivativeResults;
 	}
 	
 
